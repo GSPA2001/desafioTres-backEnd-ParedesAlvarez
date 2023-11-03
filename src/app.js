@@ -11,12 +11,12 @@ app.get('/products', async (req, res) => {
         const products = await manager.getProducts();
 
         if (limit > 0) {
-            res.send({ result: 'OK', data: products.slice(0, limit) });
+            res.json({ result: 'OK', data: products.slice(0, limit) });
         } else {
-            res.send({ result: 'OK', data: products });
+            res.json({ result: 'OK', data: products });
         }
     } catch (error) {
-        res.status(500).send({ result: 'Error', message: error.message });
+        res.status(500).json({ result: 'Error', message: error.message });
     }
 });
 
@@ -25,9 +25,9 @@ app.get('/products/:pid', async (req, res) => {
         const productId = parseInt(req.params.pid);
         const product = await manager.getProductById(productId);
 
-        res.send({ result: 'OK', data: product });
+        res.json({ result: 'OK', data: product });
     } catch (error) {
-        res.status(404).send({ result: 'Error', message: 'Producto no encontrado' });
+        res.status(404).json({ result: 'Error', message: 'Producto no encontrado' });
     }
 });
 
